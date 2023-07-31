@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import TodoList from "./components/todoList";
+import InputField from "./components/inputField";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "./store/todoSlice";
 
 function App() {
+  const [text, setText] = useState("");
+  const dispatch = useDispatch();
+
+  const addTask = () => dispatch(addTodo({ text }), setText(""));
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="todo-content">
+        <h1 className="title first-title">ToDo application</h1>
+        <h3 className="title second-title">To-do list for today</h3>
+        <div className="todo-list-container">
+          <TodoList />
+        </div>
+        <InputField text={text} setText={setText} addTodo={addTask} />
+      </div>
     </div>
   );
 }
